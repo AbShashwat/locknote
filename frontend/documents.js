@@ -1,68 +1,68 @@
-let documents = JSON.parse(localStorage.getItem("documents")) || [];
-let editIndex = -1;
+// ---------- AUTH CHECK ----------
+const token = localStorage.getItem("token");
 
-// Save or Update document
-function saveDocument() {
+if (!token) {
+    window.location.href = "index.html";
+}
+
+// ---------- SAVE DOCUMENT ----------
+async function saveDocument() {
     const title = document.getElementById("title").value;
     const content = document.getElementById("content").value;
 
-    if (title === "" || content === "") {
+    if (!title || !content) {
         alert("Please fill all fields");
         return;
     }
 
-    if (editIndex === -1) {
-        // Save new document
-        documents.push({ title, content });
-    } else {
-        // Update existing document
-        documents[editIndex] = { title, content };
-        editIndex = -1;
-    }
+    const response = await fetch(
+        "https://locknote-backend.onrender.com/documents",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({ title, content })
+        }
+    );
 
-    localStorage.setItem("documents", JSON.stringify(documents));
+    const result = await response.json();
+    alert(result.message);
+
     document.getElementById("title").value = "";
     document.getElementById("content").value = "";
 
-    displayDocuments();
+    loadDocuments();
 }
 
-// Display documents
-function displayDocuments() {
+// ---------- LOAD DOCUMENTS ----------
+async function loadDocuments() {
+    const response = await fetch(
+        "https://locknote-backend.onrender.com/documents",
+        {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+    );
+
+    const documents = await response.json();
+
     const docList = document.getElementById("docList");
     docList.innerHTML = "";
 
-    documents.forEach((doc, index) => {
+    documents.forEach(doc => {
         const li = document.createElement("li");
 
         li.innerHTML = `
-            <strong>${doc.title}</strong>
-            <br>
+            <strong>${doc.title}</strong><br>
             <small>${doc.content}</small>
-            <br><br>
-            <button onclick="editDocument(${index})">Edit</button>
-            <button onclick="deleteDocument(${index})">Delete</button>
         `;
 
         docList.appendChild(li);
     });
 }
 
-// Edit document
-function editDocument(index) {
-    document.getElementById("title").value = documents[index].title;
-    document.getElementById("content").value = documents[index].content;
-    editIndex = index;
-}
-
-// Delete document
-function deleteDocument(index) {
-    if (confirm("Are you sure you want to delete this document?")) {
-        documents.splice(index, 1);
-        localStorage.setItem("documents", JSON.stringify(documents));
-        displayDocuments();
-    }
-}
-
-// Load documents on page load
-displayDocuments();
+// ---------- INITIAL LOAD ----------
+loadDocuments();
