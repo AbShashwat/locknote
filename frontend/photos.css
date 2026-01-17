@@ -1,0 +1,47 @@
+body {
+    margin: 0;
+    background: #1e88e5;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    background: white;
+    width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.upload-box input,
+.upload-box button {
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 10px;
+}
+
+.upload-box button {
+    background: #1e88e5;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#photoGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.photo-card {
+    background: #f1f3f5;
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.photo-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 5px;
+}

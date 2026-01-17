@@ -1,0 +1,92 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #1e88e5; /* BLUE BACKGROUND */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+/* MAIN CONTAINER */
+.container {
+    background: white;
+    width: 750px;              /* INCREASED WIDTH */
+    margin-top: 50px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+h2 {
+    margin-top: 35px;
+    margin-bottom: 15px;
+}
+
+/* EDITOR AREA */
+.editor input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+}
+
+/* BIGGER TEXTAREA */
+.editor textarea {
+    width: 100%;
+    min-height: 220px;        /* MUCH LARGER */
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    resize: vertical;
+}
+
+/* BUTTON */
+.editor button {
+    width: 100%;
+    padding: 12px;
+    background-color: #1e88e5;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.editor button:hover {
+    background-color: #1565c0;
+}
+
+/* DOCUMENT LIST */
+#docList {
+    list-style: none;
+    padding: 0;
+}
+
+#docList li {
+    background: #f1f3f5;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+#docList li strong {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 16px;
+}

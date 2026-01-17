@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LockNote - Secure Notes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1 id="title">LockNote</h1>
+    <p class="subtitle" id="subtitle">
+        Sign up to securely store notes and images.
+    </p>
+
+    <form id="authForm">
+        <input type="text" id="firstName" placeholder="First Name">
+        <input type="text" id="lastName" placeholder="Last Name">
+
+        <input type="text" id="username" placeholder="Choose Login ID" required>
+        <input type="password" id="password" placeholder="Create Password" required>
+
+        <button type="submit" id="submitBtn">Sign Up</button>
+    </form>
+
+    <p class="terms" id="terms">
+        By signing up, you agree to our Terms, Privacy Policy and Cookies Policy.
+    </p>
+
+    <p class="login-link">
+        <span id="toggleText">Have an account?</span>
+        <a href="#" id="toggleLink">Log in</a>
+    </p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
