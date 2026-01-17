@@ -1,10 +1,11 @@
-const username = localStorage.getItem("username");
+// ---------- AUTH CHECK ----------
+const token = localStorage.getItem("token");
 
-if (!username) {
+if (!token) {
     window.location.href = "index.html";
 }
 
-
+// ---------- UPLOAD PHOTO ----------
 async function uploadPhoto() {
     const name = document.getElementById("photoName").value;
     const file = document.getElementById("photoFile").files[0];
@@ -15,22 +16,37 @@ async function uploadPhoto() {
     }
 
     const formData = new FormData();
-    formData.append("username", username);
     formData.append("name", name);
     formData.append("photo", file);
 
-    const response = await fetch("http://localhost:5000/photos", {
-        method: "POST",
-        body: formData
-    });
+    const response = await fetch(
+        "https://locknote-backend.onrender.com/photos",
+        {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            },
+            body: formData
+        }
+    );
 
     const result = await response.json();
     alert(result.message);
+
     loadPhotos();
 }
 
+// ---------- LOAD PHOTOS ----------
 async function loadPhotos() {
-    const response = await fetch(`http://localhost:5000/photos/${username}`);
+    const response = await fetch(
+        "https://locknote-backend.onrender.com/photos",
+        {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        }
+    );
+
     const photos = await response.json();
 
     const grid = document.getElementById("photoGrid");
@@ -40,11 +56,12 @@ async function loadPhotos() {
         const div = document.createElement("div");
         div.className = "photo-card";
         div.innerHTML = `
-            <img src="http://localhost:5000/${photo.imagePath}">
+            <img src="https://locknote-backend.onrender.com/${photo.imagePath}" />
             <p>${photo.name}</p>
         `;
         grid.appendChild(div);
     });
 }
 
+// ---------- INITIAL LOAD ----------
 loadPhotos();
